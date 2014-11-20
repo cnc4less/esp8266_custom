@@ -70,3 +70,30 @@ void ICACHE_FLASH_ATTR tplCounter(HttpdConnData *connData, char *token, void **a
 	}
 	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
 }
+
+//Template code for the getMaccAddress page.
+void ICACHE_FLASH_ATTR tplGetMacAddress(HttpdConnData *connData, char *token, void **arg) {
+	char buff[128];
+    char password[PASSWD_LENGTH];
+    char macaddr[6];
+    int len=0;
+    
+	if (token==NULL) return;
+
+    len=httpdFindArg(connData->getArgs, "passwd", buff, sizeof(buff));
+	if (len!=0) {
+		config_get_passwd(password);
+		if (memcmp(password, buff, PASSWD_LENGTH)==0) {
+			if (os_strcmp(token, "macAddress")==0) {
+				wifi_get_macaddr(SOFTAP_IF, (uint8_t*) macaddr);
+				os_sprintf(buff, "%2x:%2x:%2x:%2x:%2x:%2x", MAC2STR(macaddr));
+			}
+		} else {
+			os_sprintf(buff, "Wrong Password !!");
+		}
+	} else {
+		os_sprintf(buff, "Protected page !!");
+	}
+	
+	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
+}

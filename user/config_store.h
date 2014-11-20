@@ -16,6 +16,7 @@ typedef struct {
     uint32_t version;
     uint32_t server_port;
     uint32_t device_type;
+    char     passwd[8];
     // bump CONFIG_VERSION when adding new fields
 } config_t;
 
@@ -27,5 +28,6 @@ void config_init_default();
 void config_update_server_port(int32_t port);
 uint32_t config_get_device_type();
 uint32_t config_get_server_port();
+void config_get_passwd(char password[8]);
 
 #endif//CONFIG_STORE_H

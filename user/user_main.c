@@ -27,7 +27,8 @@ HttpdBuiltInUrl builtInUrls[]={
 	{"/index.tpl", cgiEspFsTemplate, tplCounter},
 	{"/server_cfg.tpl", cgiEspFsTemplate, tplServer},
 	{"/server_cfg.cgi", cgiServer, tplServer},
-
+	{"/getMacAddress.tpl",tplGetMacAddress},
+	
 	//Routines to make the /wifi URL and everything beneath it work.
 	{"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
 	{"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},

@@ -5,5 +5,7 @@
 
 void tplCounter(HttpdConnData *connData, char *token, void **arg);
 void tplServer(HttpdConnData *connData, char *token, void **arg);
-int ICACHE_FLASH_ATTR cgiServer(HttpdConnData *connData);
+int cgiServer(HttpdConnData *connData);
+void tplGetMacAddress(HttpdConnData *connData, char *token, void **arg);
+
 #endif

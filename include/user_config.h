@@ -10,4 +10,8 @@
 
 #define DEVICE_TYPE TYPE_0
 
+#define PASSWD_LENGTH 8
+
+#define DEFAULT_PASSWD "test234$"
+
 #endif

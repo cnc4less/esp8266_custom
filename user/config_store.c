@@ -71,6 +71,7 @@ void ICACHE_FLASH_ATTR config_init_default()
     config->version = CONFIG_VERSION;
     config->server_port = DEFAULT_PORT;
     config->device_type = DEVICE_TYPE;
+    os_sprintf(config->passwd, DEFAULT_PASSWD, PASSWD_LENGTH);
     config_save();
     
     ETS_UART_INTR_DISABLE();
@@ -95,4 +96,10 @@ uint32_t ICACHE_FLASH_ATTR config_get_server_port()
 {
 	config_t* config = config_get();
     return config->server_port;
+}
+
+void ICACHE_FLASH_ATTR config_get_passwd(char password[8])
+{
+	config_t* config = config_get();
+	strncpy(password, config->passwd, PASSWD_LENGTH);
 }
