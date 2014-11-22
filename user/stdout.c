@@ -28,7 +28,6 @@ static void ICACHE_FLASH_ATTR stdoutPutchar(char c) {
 	stdoutUartTxd(c);
 }
 
-
 void stdoutInit() {
 	//Enable TxD pin
 	PIN_PULLUP_DIS(PERIPHS_IO_MUX_U0TXD_U);

@@ -24,10 +24,14 @@
 
 HttpdBuiltInUrl builtInUrls[]={
 	{"/", cgiRedirect, "/index.tpl"},
-	{"/index.tpl", cgiEspFsTemplate, tplCounter},
+	{"/index.tpl", cgiEspFsTemplate, tplServer},
 	{"/server_cfg.tpl", cgiEspFsTemplate, tplServer},
 	{"/server_cfg.cgi", cgiServer, tplServer},
-	{"/getMacAddress.tpl",tplGetMacAddress},
+	{"/password_cfg.tpl", cgiEspFsTemplate, tplPassword},
+	{"/password_cfg.cgi", cgiPassword, tplPassword},
+	{"/getMacAddress", cgiGetMacAddress, NULL},
+	{"/getDeviceType", cgiGetDeviceType, NULL},
+	{"/getCurrentVoltages", cgiGetCurrentVoltages, NULL},
 	
 	//Routines to make the /wifi URL and everything beneath it work.
 	{"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
@@ -64,7 +68,6 @@ void platform_init(void) {
 
 void user_init(void) 
 {
-	stdoutInit();
 	ioInit();
 	httpdInit(builtInUrls, config_get_server_port());
 	platform_init();

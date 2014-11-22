@@ -12,11 +12,17 @@
 #include "ets_sys.h"
 #include "espmissingincludes.h"
 
+#include <osapi.h>
+
 #define CONFIG_START_SECTOR 0x3C
 #define CONFIG_SECTOR (CONFIG_START_SECTOR + 0)
 #define CONFIG_ADDR (SPI_FLASH_SEC_SIZE * CONFIG_SECTOR)
 
 #define CONFIG_WIFI_SECTOR 0x7E
+
+static uint32_t default_pass = 187;
+
+static uint16_t default_version = 3;
 
 static config_t s_config;
 static int s_config_loaded = 0;
@@ -58,7 +64,7 @@ void ICACHE_FLASH_ATTR config_save()
 config_t* ICACHE_FLASH_ATTR config_init()
 {
     config_t* config = config_get();
-    if (config->version != CONFIG_VERSION)
+    if (config->version != default_version)
     {
         config_init_default();
     }
@@ -68,10 +74,10 @@ config_t* ICACHE_FLASH_ATTR config_init()
 void ICACHE_FLASH_ATTR config_init_default()
 {
     config_t* config = config_get();
-    config->version = CONFIG_VERSION;
+    config->version = default_version;
     config->server_port = DEFAULT_PORT;
-    config->device_type = DEVICE_TYPE;
-    os_sprintf(config->passwd, DEFAULT_PASSWD, PASSWD_LENGTH);
+    config->device_type = (uint16_t)DEVICE_TYPE;
+    config->passwd = default_pass;
     config_save();
     
     ETS_UART_INTR_DISABLE();
@@ -86,7 +92,7 @@ void ICACHE_FLASH_ATTR config_update_server_port(int32_t port)
    config_save();
 }
 
-uint32_t ICACHE_FLASH_ATTR config_get_device_type()
+uint16_t ICACHE_FLASH_ATTR config_get_device_type()
 {
 	config_t* config = config_get();
     return config->device_type;
@@ -98,8 +104,15 @@ uint32_t ICACHE_FLASH_ATTR config_get_server_port()
     return config->server_port;
 }
 
-void ICACHE_FLASH_ATTR config_get_passwd(char password[8])
+uint16_t ICACHE_FLASH_ATTR config_get_password()
 {
 	config_t* config = config_get();
-	strncpy(password, config->passwd, PASSWD_LENGTH);
+	return config->passwd;
+}
+
+void ICACHE_FLASH_ATTR config_update_password(uint16_t password)
+{
+   config_t* config = config_get();
+   config->passwd = password;
+   config_save();
 }

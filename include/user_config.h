@@ -10,8 +10,10 @@
 
 #define DEVICE_TYPE TYPE_0
 
-#define PASSWD_LENGTH 8
+#define PASSWD_LENGTH 7
 
-#define DEFAULT_PASSWD "test234$"
+#define DEFAULT_PASSWD 125
+
+#define MAX_STM32_RESPONSE_LENGTH 20
 
 #endif

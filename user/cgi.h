@@ -3,9 +3,13 @@
 
 #include "httpd.h"
 
-void tplCounter(HttpdConnData *connData, char *token, void **arg);
 void tplServer(HttpdConnData *connData, char *token, void **arg);
+void tplPassword(HttpdConnData *connData, char *token, void **arg);
+
 int cgiServer(HttpdConnData *connData);
-void tplGetMacAddress(HttpdConnData *connData, char *token, void **arg);
+int cgiGetMacAddress(HttpdConnData *connData);
+int cgiGetCurrentVoltages(HttpdConnData *connData);
+int cgiGetDeviceType(HttpdConnData *connData);
+int cgiPassword(HttpdConnData *connData);
 
 #endif

@@ -147,7 +147,7 @@ EspFsFile ICACHE_FLASH_ATTR *espFsOpen(char *fileName) {
 				//Decoder params are stored in 1st byte.
 				memcpyAligned(&parm, r->posComp, 1);
 				r->posComp++;
-				os_printf("Heatshrink compressed file; decode parms = %x\n", parm);
+				//os_printf("Heatshrink compressed file; decode parms = %x\n", parm);
 				dec=heatshrink_decoder_alloc(16, (parm>>4)&0xf, parm&0xf);
 				r->decompData=dec;
 #endif
